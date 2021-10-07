@@ -4,7 +4,7 @@ from demos import cmd
 
 def exp(data_path = "../data/UTKFace"):
     experiment = Experiment(data_path)
-    experiment.exp()
+    experiment.exp(fairbalance=True)
 
 
 

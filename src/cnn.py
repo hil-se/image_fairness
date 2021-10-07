@@ -21,7 +21,7 @@ class CNN:
 
     def fit(self, X, y, sample_weight=None):
         y_hot =tf.keras.utils.to_categorical(y, 2)
-        self.model.fit(X, y_hot, sample_weight=sample_weight)
+        self.model.fit(X, y_hot, sample_weight=sample_weight, batch_size=128, epochs=10)
 
     def predict(self, X):
         pred = self.model.predict(X)
