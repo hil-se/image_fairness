@@ -2,7 +2,7 @@ from matplotlib import image
 from os import listdir
 from os.path import isfile, join
 from collections import Counter
-from cnn import CNN
+from cnn import CNN, VGG16, VGG
 import numpy as np
 from pdb import set_trace
 
@@ -12,7 +12,7 @@ class Experiment:
         self.X = self.data["image"]
         self.y = self.data[label]
         self.protected = protected_attrs
-        self.model = CNN()
+        self.model = VGG()
         # self.target = the minority class
         stat = Counter(self.y)
         self.target = list(stat.keys())[np.argmin(list(stat.values()))]
