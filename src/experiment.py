@@ -12,7 +12,7 @@ class Experiment:
         self.X = self.data["image"]
         self.y = self.data[label]
         self.protected = protected_attrs
-        self.model = VGG16()
+        self.model = VGG()
         # self.target = the minority class
         stat = Counter(self.y)
         self.target = list(stat.keys())[np.argmin(list(stat.values()))]
@@ -125,7 +125,7 @@ class Experiment:
 
     def inject(self, sample):
         self.injected = []
-        non_target = (set(Counter(self.y).keys())-self.target)[0]
+        non_target = list(set(Counter(self.y).keys())-{self.target})[0]
         biased_y = self.y[sample]
         # perform bias injection on the input data.
         for attribute in self.inject_ratio:
