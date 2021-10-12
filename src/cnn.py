@@ -93,7 +93,7 @@ class VGG:
         self.model.add(tf.keras.layers.Flatten())
         self.model.add(tf.keras.layers.Dense(6 * 6 * start_size * 8, activation='relu'))
         self.model.add(tf.keras.layers.Dense(6 * 6 * start_size * 8, activation='relu'))
-        # self.model.add(tf.keras.layers.Dropout(0.5))
+        self.model.add(tf.keras.layers.Dropout(0.5))
         self.model.add(tf.keras.layers.Dense(2, activation='softmax'))
         self.model.compile(loss=tf.keras.losses.CategoricalCrossentropy(), metrics=['accuracy'], optimizer='adam')
 
