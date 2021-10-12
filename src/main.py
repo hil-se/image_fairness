@@ -15,7 +15,7 @@ def exp(data_path = "../data/UTKFace", fair = True, inject = None):
     return result
 
 def nofair(seed = 0):
-    np.random.seed(seed)
+    np.random.seed(int(seed))
     data_path = "../data/UTKFace"
     result_path = "../result/nofair/"
     result = exp(data_path, fair=False)
@@ -24,7 +24,7 @@ def nofair(seed = 0):
         pickle.dump(result, f)
 
 def fair(seed=0):
-    np.random.seed(seed)
+    np.random.seed(int(seed))
     data_path = "../data/UTKFace"
     result_path = "../result/fair/"
     result = exp(data_path, fair=True)
@@ -33,7 +33,7 @@ def fair(seed=0):
         pickle.dump(result, f)
 
 def white(seed=0):
-    np.random.seed(seed)
+    np.random.seed(int(seed))
     data_path = "../data/UTKFace"
     result_path = "../result/white/"
     inject_ratio = {"race": [0.4, -0.4]}
@@ -43,7 +43,7 @@ def white(seed=0):
         pickle.dump(result, f)
 
 def black(seed=0):
-    np.random.seed(seed)
+    np.random.seed(int(seed))
     data_path = "../data/UTKFace"
     result_path = "../result/black/"
     inject_ratio = {"race": [-0.4, 0.4]}

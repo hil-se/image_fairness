@@ -38,5 +38,5 @@ spack load py-tensorflow
 spack load py-matplotlib
 spack load py-pillow@8.3.1
 ## Execute target code
-python3 main.py fair
+python3 main.py fair 1
 
