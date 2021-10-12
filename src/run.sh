@@ -12,7 +12,7 @@
 #SBATCH -e log/%J.e
 
 ## To send mail for updates on the job
-#SBATCH --mail-user=zxyvse@rit.edu
+## SBATCH --mail-user=zxyvse@rit.edu
 #SBATCH --mail-type=ALL
 
 ## Request 3 Days, 5 Hours, 5 Minutes, 3 Seconds run time MAX, 
