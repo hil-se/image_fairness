@@ -33,10 +33,12 @@
 
 ## Job script goes below this line
 
+spack unload -a
 ## Load modules with spack
-spack load py-tensorflow
-spack load py-matplotlib
-spack load py-pillow@8.3.1
+## Tensorflow
+spack load /lklqe3u
+## matplotlib
+spack load /saj4vss
 ## Execute target code
 python3 main.py fair 1
 
