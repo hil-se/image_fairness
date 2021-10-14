@@ -2,20 +2,20 @@
 ## NOTE the -l flag!
 
 ## Name of the job -You'll probably want to customize this
-#SBATCH -J image_fairness
+#SBATCH -J image_fairness_nofair
 
 ## Use the resources available on this account
 #SBATCH -A loop
 
-## Standard out and Standard Error output files 
-#SBATCH -o log/%J.o
-#SBATCH -e log/%J.e
+## Standard out and Standard Error output files
+#SBATCH -o log/%J_%a.o
+#SBATCH -e log/%J_%a.e
 
 ## To send mail for updates on the job
 ## SBATCH --mail-user=zxyvse@rit.edu
 #SBATCH --mail-type=ALL
 
-## Request 3 Days, 5 Hours, 5 Minutes, 3 Seconds run time MAX, 
+## Request 3 Days, 5 Hours, 5 Minutes, 3 Seconds run time MAX,
 ## anything over will be KILLED
 #SBATCH -t 3-03:05:03
 
@@ -29,7 +29,7 @@
 #SBATCH -G 1
 
 ## Job memory requirements in MB
-#SBATCH --mem=32G
+#SBATCH --mem=16G
 
 ## Job script goes below this line
 
@@ -40,5 +40,5 @@ spack load /lklqe3u
 ## matplotlib
 spack load /saj4vss
 ## Execute target code
-python3 main.py fair 10
+python3 main.py fair ${SLURM_ARRAY_TASK_ID}
 
