@@ -40,5 +40,5 @@ spack load /lklqe3u
 ## matplotlib
 spack load /saj4vss
 ## Execute target code
-Python3 main.py nofair ${SLURM_ARRAY_TASK_ID}
+python3 main.py nofair ${SLURM_ARRAY_TASK_ID}
 
