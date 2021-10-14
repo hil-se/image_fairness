@@ -24,7 +24,7 @@
 ## use any tier you have available
 #SBATCH -p tier3
 
-## Request 1 core for one task, note how you can put multiple commands
+## Request 1 GPU for one task, note how you can put multiple commands
 ## on one line
 #SBATCH --gres=gpu:v100:1
 

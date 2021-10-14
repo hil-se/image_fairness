@@ -24,12 +24,12 @@
 ## use any tier you have available
 #SBATCH -p tier3
 
-## Request 1 core for one task, note how you can put multiple commands
+## Request 1 GPU for one task, note how you can put multiple commands
 ## on one line
-#SBATCH -G 1
+#SBATCH --gres=gpu:v100:1
 
 ## Job memory requirements in MB
-#SBATCH --mem=16G
+#SBATCH --mem=32G
 
 ## Job script goes below this line
 

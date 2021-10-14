@@ -123,7 +123,7 @@ class VGG16:
 
     def fit(self, X, y, sample_weight=None):
         y_hot =tf.keras.utils.to_categorical(y, 2)
-        history = self.model.fit(X, y_hot, sample_weight=sample_weight, validation_split = 0.1, batch_size=128, epochs=10)
+        history = self.model.fit(X, y_hot, sample_weight=sample_weight, validation_split = 0.1, batch_size=128, epochs=30)
         print(history.history)
 
     def predict(self, X):
