@@ -26,7 +26,7 @@
 
 ## Request 1 core for one task, note how you can put multiple commands
 ## on one line
-#SBATCH -G 1
+#SBATCH --gres=gpu:v100:1
 
 ## Job memory requirements in MB
 #SBATCH --mem=32G
