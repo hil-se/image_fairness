@@ -12,7 +12,7 @@ class Experiment:
         self.X = self.data["image"]
         self.y = self.data[label]
         self.protected = protected_attrs
-        self.model = VGG16()
+        self.model = VGG()
         # self.target = the minority class
         stat = Counter(self.y)
         self.target = list(stat.keys())[np.argmin(list(stat.values()))]
