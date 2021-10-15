@@ -111,7 +111,7 @@ class VGG16:
     def __init__(self):
         self.model = tf.keras.applications.VGG16(
             include_top=True,
-            weights='imagenet',
+            weights=None,
             input_tensor=None,
             input_shape=(200,200,3),
             pooling=None,

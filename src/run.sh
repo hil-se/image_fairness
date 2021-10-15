@@ -26,7 +26,7 @@
 
 ## Request 1 GPU for one task, note how you can put multiple commands
 ## on one line
-#SBATCH --gres=gpu:v100:1
+#SBATCH --gres=gpu:1
 
 ## Job memory requirements in MB
 #SBATCH --mem=32G
@@ -40,5 +40,5 @@ spack load /lklqe3u
 ## matplotlib
 spack load /saj4vss
 ## Execute target code
-python3 main.py fair 10
+python3 main.py nofair 10
 
