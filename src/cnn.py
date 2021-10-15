@@ -55,7 +55,7 @@ class VGG:
                                    input_shape=(200, 200, 3)))
         self.model.add(tf.keras.layers.MaxPool2D(pool_size=(2, 2)))
         self.model.add(
-            tf.keras.layers.Conv2D(start_size*2, kernel_size=(3, 3), strides=(1, 1), padding='same', activation='relu', kernel_regularizer=tf.keras.regularizers.l2(5e-4)))
+            tf.keras.layers.Conv2D(start_size*2, kernel_size=(3, 3), strides=(1, 1), padding='same', activation='relu'))
         self.model.add(
             tf.keras.layers.Conv2D(start_size * 2, kernel_size=(3, 3), strides=(1, 1), padding='same',
                                    activation='relu'))
@@ -92,6 +92,7 @@ class VGG:
 
         self.model.add(tf.keras.layers.Flatten())
         self.model.add(tf.keras.layers.Dense(6 * 6 * start_size * 8, activation='relu'))
+        self.model.add(tf.keras.layers.Dropout(0.5))
         self.model.add(tf.keras.layers.Dense(6 * 6 * start_size * 8, activation='relu'))
         self.model.add(tf.keras.layers.Dropout(0.5))
         self.model.add(tf.keras.layers.Dense(2, activation='softmax'))
