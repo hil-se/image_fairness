@@ -100,7 +100,11 @@ class VGG:
 
     def fit(self, X, y, sample_weight=None):
         y_hot =tf.keras.utils.to_categorical(y, 2)
-        history = self.model.fit(X, y_hot, sample_weight=sample_weight, validation_split = 0.1, batch_size=128, epochs=10)
+        lr_reduce = tf.keras.callbacks.ReduceLROnPlateau(monitor='val_accuracy', factor=0.6, patience=8, verbose=1, mode='max',
+                                      min_lr=5e-5)
+        checkpoint = tf.keras.callbacks.ModelCheckpoint('vgg16_finetune.h15', monitor='val_accuracy', mode='max', save_best_only=True,
+                                     verbose=1)
+        history = self.model.fit(X, y_hot, sample_weight=sample_weight, callbacks=[lr_reduce,checkpoint], validation_split = 0.1, batch_size=128, epochs=10)
         print(history.history)
 
     def predict(self, X):
