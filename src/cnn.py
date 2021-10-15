@@ -106,7 +106,7 @@ class VGG:
         checkpoint = tf.keras.callbacks.ModelCheckpoint(checkpoint_filepath, monitor='val_accuracy', mode='max', save_best_only=True,
                                      verbose=1)
         history = self.model.fit(X, y_hot, sample_weight=sample_weight, callbacks=[lr_reduce,checkpoint], validation_split = 0.1, batch_size=128, epochs=20)
-        self.model.load_weights(checkpoint_filepath)
+        self.model = tf.saved_model.load(checkpoint_filepath)
         print(history.history)
 
     def predict(self, X):
@@ -135,3 +135,4 @@ class VGG16:
     def predict(self, X):
         pred = self.model.predict(X)
         return np.array([np.argmax(row) for row in pred])
+
