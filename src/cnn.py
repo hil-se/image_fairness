@@ -81,13 +81,13 @@ class VGG:
         self.model.add(tf.keras.layers.MaxPool2D(pool_size=(2, 2)))
         self.model.add(
             tf.keras.layers.Conv2D(start_size * 8, kernel_size=(3, 3), strides=(1, 1), padding='same',
-                                   activation='relu', kernel_regularizer=tf.keras.regularizers.l2(1e-4)))
+                                   activation='relu', kernel_regularizer=tf.keras.regularizers.l2(5e-4)))
         self.model.add(
             tf.keras.layers.Conv2D(start_size * 8, kernel_size=(3, 3), strides=(1, 1), padding='same',
-                                   activation='relu', kernel_regularizer=tf.keras.regularizers.l2(1e-4)))
+                                   activation='relu', kernel_regularizer=tf.keras.regularizers.l2(5e-4)))
         self.model.add(
             tf.keras.layers.Conv2D(start_size * 8, kernel_size=(3, 3), strides=(1, 1), padding='same',
-                                   activation='relu', kernel_regularizer=tf.keras.regularizers.l2(1e-4)))
+                                   activation='relu', kernel_regularizer=tf.keras.regularizers.l2(5e-4)))
         self.model.add(tf.keras.layers.MaxPool2D(pool_size=(2, 2)))
 
         self.model.add(tf.keras.layers.Flatten())
