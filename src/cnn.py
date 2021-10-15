@@ -49,35 +49,35 @@ class VGG:
         self.model = tf.keras.models.Sequential()
         self.model.add(
             tf.keras.layers.Conv2D(start_size, kernel_size=(3, 3), strides=(1, 1), padding='same', activation='relu',
-                                   input_shape=(200, 200, 3)))
+                                   input_shape=(200, 200, 3), kernel_regularizer=tf.keras.regularizers.l2(5e-4)))
         self.model.add(
             tf.keras.layers.Conv2D(start_size, kernel_size=(3, 3), strides=(1, 1), padding='same', activation='relu',
-                                   input_shape=(200, 200, 3)))
+                                   input_shape=(200, 200, 3), kernel_regularizer=tf.keras.regularizers.l2(5e-4)))
         self.model.add(tf.keras.layers.MaxPool2D(pool_size=(2, 2)))
         self.model.add(
-            tf.keras.layers.Conv2D(start_size*2, kernel_size=(3, 3), strides=(1, 1), padding='same', activation='relu'))
+            tf.keras.layers.Conv2D(start_size*2, kernel_size=(3, 3), strides=(1, 1), padding='same', activation='relu', kernel_regularizer=tf.keras.regularizers.l2(5e-4)))
         self.model.add(
             tf.keras.layers.Conv2D(start_size * 2, kernel_size=(3, 3), strides=(1, 1), padding='same',
-                                   activation='relu'))
+                                   activation='relu', kernel_regularizer=tf.keras.regularizers.l2(5e-4)))
         self.model.add(tf.keras.layers.MaxPool2D(pool_size=(2, 2)))
         self.model.add(
-            tf.keras.layers.Conv2D(start_size*4, kernel_size=(3, 3), strides=(1, 1), padding='same', activation='relu'))
+            tf.keras.layers.Conv2D(start_size*4, kernel_size=(3, 3), strides=(1, 1), padding='same', activation='relu', kernel_regularizer=tf.keras.regularizers.l2(5e-4)))
         self.model.add(
             tf.keras.layers.Conv2D(start_size * 4, kernel_size=(3, 3), strides=(1, 1), padding='same',
-                                   activation='relu'))
+                                   activation='relu', kernel_regularizer=tf.keras.regularizers.l2(5e-4)))
         self.model.add(
             tf.keras.layers.Conv2D(start_size * 4, kernel_size=(3, 3), strides=(1, 1), padding='same',
-                                   activation='relu'))
+                                   activation='relu', kernel_regularizer=tf.keras.regularizers.l2(5e-4)))
         self.model.add(tf.keras.layers.MaxPool2D(pool_size=(2, 2)))
         self.model.add(
             tf.keras.layers.Conv2D(start_size * 8, kernel_size=(3, 3), strides=(1, 1), padding='same',
-                                   activation='relu'))
+                                   activation='relu', kernel_regularizer=tf.keras.regularizers.l2(5e-4)))
         self.model.add(
             tf.keras.layers.Conv2D(start_size * 8, kernel_size=(3, 3), strides=(1, 1), padding='same',
-                                   activation='relu'))
+                                   activation='relu', kernel_regularizer=tf.keras.regularizers.l2(5e-4)))
         self.model.add(
             tf.keras.layers.Conv2D(start_size * 8, kernel_size=(3, 3), strides=(1, 1), padding='same',
-                                   activation='relu'))
+                                   activation='relu', kernel_regularizer=tf.keras.regularizers.l2(5e-4)))
         self.model.add(tf.keras.layers.MaxPool2D(pool_size=(2, 2)))
         self.model.add(
             tf.keras.layers.Conv2D(start_size * 8, kernel_size=(3, 3), strides=(1, 1), padding='same',
@@ -105,6 +105,7 @@ class VGG:
         checkpoint = tf.keras.callbacks.ModelCheckpoint('vgg16_finetune.h15', monitor='val_accuracy', mode='max', save_best_only=True,
                                      verbose=1)
         history = self.model.fit(X, y_hot, sample_weight=sample_weight, callbacks=[lr_reduce,checkpoint], validation_split = 0.1, batch_size=128, epochs=20)
+        self.model.load_weights('vgg16_finetune.h15')
         print(history.history)
 
     def predict(self, X):
