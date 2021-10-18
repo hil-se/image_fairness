@@ -112,8 +112,11 @@ class VGG:
     def predict(self, X):
         pred = self.model.predict(X)
         # pred = np.array([np.argmax(row) for row in pred])
-        pred = pred.flatten()
+        pred = (pred.flatten()>0.5).astype(int).astype(float)
         return pred
+
+    def load_model(self, checkpoint_filepath = './tmp/checkpoint'):
+        self.model = tf.keras.models.load_model(checkpoint_filepath)
 
 class VGG16:
     def __init__(self):

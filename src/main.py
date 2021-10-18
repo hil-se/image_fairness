@@ -52,7 +52,12 @@ def black(seed=0):
     with open(saveto, "wb") as f:
         pickle.dump(result, f)
 
-
+def exp_trained(data_path = "../data/UTKFace", checkpoint_filepath = './tmp/checkpoint'):
+    experiment = Experiment(data_path)
+    experiment.model.load_model(checkpoint_filepath)
+    train, test = experiment.split(len(experiment.y))
+    print(experiment.evaluate(test))
+    return
 
 if __name__ == "__main__":
     eval(cmd())
