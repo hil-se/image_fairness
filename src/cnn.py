@@ -95,24 +95,25 @@ class VGG:
         self.model.add(tf.keras.layers.Dropout(0.5))
         self.model.add(tf.keras.layers.Dense(6 * 6 * start_size * 8, activation='relu'))
         self.model.add(tf.keras.layers.Dropout(0.5))
-        self.model.add(tf.keras.layers.Dense(2, activation='softmax'))
-        self.model.compile(loss=tf.keras.losses.CategoricalCrossentropy(), metrics=['accuracy'], optimizer='adam')
+        self.model.add(tf.keras.layers.Dense(1, activation='sigmoid'))
+        self.model.compile(loss=tf.keras.losses.BinaryCrossentropy(), metrics=['accuracy'], optimizer='adam')
 
 
     def fit(self, X, y, sample_weight=None):
         checkpoint_filepath = './tmp/checkpoint'
-        y_hot =tf.keras.utils.to_categorical(y, 2)
         lr_reduce = tf.keras.callbacks.ReduceLROnPlateau(monitor='val_accuracy', factor=0.6, patience=8, verbose=1, mode='max',
                                       min_lr=5e-5)
         checkpoint = tf.keras.callbacks.ModelCheckpoint(checkpoint_filepath, monitor='val_accuracy', mode='max', save_best_only=True,
                                      verbose=1)
-        history = self.model.fit(X, y_hot, sample_weight=sample_weight, callbacks=[lr_reduce,checkpoint], validation_split = 0.1, batch_size=128, epochs=20)
+        history = self.model.fit(X, y, sample_weight=sample_weight, callbacks=[lr_reduce,checkpoint], validation_split = 0.1, batch_size=128, epochs=20)
         self.model = tf.keras.models.load_model(checkpoint_filepath)
         print(history.history)
 
     def predict(self, X):
         pred = self.model.predict(X)
-        return np.array([np.argmax(row) for row in pred])
+        # pred = np.array([np.argmax(row) for row in pred])
+        pred = pred.flatten()
+        return pred
 
 class VGG16:
     def __init__(self):
