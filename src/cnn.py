@@ -100,7 +100,7 @@ class VGG:
 
 
     def fit(self, X, y, sample_weight=None):
-        checkpoint_filepath = './tmp/checkpoint'
+        checkpoint_filepath = './tmp/checkpoint'+str(np.random.random())
         lr_reduce = tf.keras.callbacks.ReduceLROnPlateau(monitor='val_accuracy', factor=0.6, patience=8, verbose=1, mode='max',
                                       min_lr=5e-5)
         checkpoint = tf.keras.callbacks.ModelCheckpoint(checkpoint_filepath, monitor='val_accuracy', mode='max', save_best_only=True,
