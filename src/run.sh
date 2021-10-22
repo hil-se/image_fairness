@@ -40,5 +40,5 @@ spack load /lklqe3u
 ## matplotlib
 spack load /saj4vss
 ## Execute target code
-python3 main.py fair 10
+python3 main.py nofair 10
 
