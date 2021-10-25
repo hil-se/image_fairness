@@ -5,7 +5,8 @@ try:
   import cPickle as pickle
 except:
   import pickle
-
+import os
+import pandas as pd
 
 def exp(data_path = "../data/UTKFace", fair = True, inject = None):
     experiment = Experiment(data_path)
@@ -52,12 +53,50 @@ def black(seed=0):
     with open(saveto, "wb") as f:
         pickle.dump(result, f)
 
-def exp_trained(data_path = "../data/UTKFace", checkpoint_filepath = './tmp/checkpoint'):
-    experiment = Experiment(data_path)
-    experiment.model.load_model(checkpoint_filepath)
-    train, test = experiment.split(len(experiment.y))
-    print(experiment.evaluate(test))
-    return
+def summarize_result(path = "../result/", output = "../csv/result.csv"):
+    treatments = os.listdir(path)
+    compare = {}
+    for treatment in treatments:
+        results = None
+        files = os.listdir(path+treatment)
+        for file in files:
+            with open(path+treatment+"/"+file, "rb") as f:
+                result = pickle.load(f)
+            if result['eod_pair'] == ((1,),(0,)):
+                result['eod'] = - result['eod']
+            if result['aod_pair'] == ((1,),(0,)):
+                result['aod'] = - result['aod']
+            result.pop('eod_pair', None)
+            result.pop('aod_pair', None)
+            if results == None:
+                results = {key:[] for key in result}
+            results = {key:results[key]+[result[key]] for key in result}
+        compare[treatment] = results
+
+    display = {"Treatment":[]}
+    for treatment in treatments:
+        display["Treatment"].append(treatment)
+        medians = median_dict(compare[treatment])
+        for key in medians:
+            if key not in display:
+                display[key] = []
+            display[key].append(medians[key])
+    df = pd.DataFrame(display)
+    df.to_csv(output, index=False)
+
+def median_dict(results, use_iqr = True):
+    # Compute median value of lists in the dictionary
+    for key in results:
+        if type(results[key]) == dict:
+            results[key] = median_dict(results[key], use_iqr = use_iqr)
+        else:
+            med = np.median(results[key])
+            if use_iqr:
+                iqr = np.percentile(results[key],75)-np.percentile(results[key],25)
+                results[key] = "%d (%d)" % (med*100, iqr*100)
+            else:
+                results[key] = "%d" % (med*100)
+    return results
 
 if __name__ == "__main__":
     eval(cmd())
