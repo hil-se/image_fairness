@@ -47,7 +47,7 @@ def black(ratio=4, seed=0):
     np.random.seed(int(seed))
     data_path = "../data/UTKFace"
     result_path = "../result/black_"+str(ratio)+"/"
-    inject_ratio = {"race": [float(ratio)/10, -float(ratio)/10]}
+    inject_ratio = {"race": [-float(ratio)/10, float(ratio)/10]}
     result = exp(data_path, fair=True, inject=inject_ratio)
     saveto = result_path + str(seed) + ".pickle"
     with open(saveto, "wb") as f:
