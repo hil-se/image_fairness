@@ -40,5 +40,7 @@ spack load /lklqe3u
 ## matplotlib
 spack load /saj4vss
 ## Execute target code
-python3 main.py white ${SLURM_ARRAY_TASK_ID}
+python3 main.py white 1 ${SLURM_ARRAY_TASK_ID}
+python3 main.py white 2 ${SLURM_ARRAY_TASK_ID}
+python3 main.py white 3 ${SLURM_ARRAY_TASK_ID}
 
