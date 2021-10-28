@@ -2,9 +2,8 @@ from matplotlib import image
 from os import listdir
 from os.path import isfile, join
 from collections import Counter
-from cnn import CNN, VGG16, VGG
+from cnn import VGG
 import numpy as np
-from pdb import set_trace
 
 class Experiment:
     def __init__(self, data_path="../data/UTKFace", label = "sex", protected_attrs = ["race"]):
