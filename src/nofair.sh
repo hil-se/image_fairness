@@ -42,3 +42,5 @@ spack load /saj4vss
 ## Execute target code
 python3 main.py nofair ${SLURM_ARRAY_TASK_ID}
 
+## Submit this job with
+## sbatch --array=1-30 nofair.sh

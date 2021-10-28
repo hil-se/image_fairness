@@ -40,7 +40,9 @@ spack load /lklqe3u
 ## matplotlib
 spack load /saj4vss
 ## Execute target code
-python3 main.py black 1 ${SLURM_ARRAY_TASK_ID}
-python3 main.py black 2 ${SLURM_ARRAY_TASK_ID}
-python3 main.py black 3 ${SLURM_ARRAY_TASK_ID}
+python3 main.py black $RATIO ${SLURM_ARRAY_TASK_ID}
+
+## Submit this job with
+## sbatch --export=RATIO=1 --array=1-30 black.sh
+
 
