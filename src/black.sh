@@ -39,6 +39,8 @@ spack unload -a
 spack load /lklqe3u
 ## matplotlib
 spack load /saj4vss
+## pandas
+spack load py-pandas
 ## Execute target code
 python3 main.py black $RATIO ${SLURM_ARRAY_TASK_ID}
 
