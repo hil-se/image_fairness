@@ -53,6 +53,26 @@ def black(ratio=4, seed=0):
     with open(saveto, "wb") as f:
         pickle.dump(result, f)
 
+def white_no(ratio=4, seed=0):
+    np.random.seed(int(seed))
+    data_path = "../data/UTKFace"
+    result_path = "../result/white_no_"+str(ratio)+"/"
+    inject_ratio = {"race": [float(ratio)/10, -float(ratio)/10]}
+    result = exp(data_path, fair=False, inject=inject_ratio)
+    saveto = result_path + str(seed) + ".pickle"
+    with open(saveto, "wb") as f:
+        pickle.dump(result, f)
+
+def black_no(ratio=4, seed=0):
+    np.random.seed(int(seed))
+    data_path = "../data/UTKFace"
+    result_path = "../result/black_no_"+str(ratio)+"/"
+    inject_ratio = {"race": [-float(ratio)/10, float(ratio)/10]}
+    result = exp(data_path, fair=False, inject=inject_ratio)
+    saveto = result_path + str(seed) + ".pickle"
+    with open(saveto, "wb") as f:
+        pickle.dump(result, f)
+
 def summarize_result(path = "../result/", output = "../csv/result.csv"):
     treatments = os.listdir(path)
     compare = {}

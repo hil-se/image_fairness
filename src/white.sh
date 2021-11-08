@@ -45,5 +45,5 @@ spack load py-pandas
 python3 main.py white $RATIO ${SLURM_ARRAY_TASK_ID}
 
 ## Submit this job with
-## sbatch --export=RATIO=1 --array=1-30 white.sh
+## sbatch --export=RATIO=4 --array=1-30 white.sh
 
