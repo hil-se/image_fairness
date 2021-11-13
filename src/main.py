@@ -43,10 +43,10 @@ def white(ratio=4, seed=0):
     with open(saveto, "wb") as f:
         pickle.dump(result, f)
 
-def black(ratio=4, seed=0):
+def nonwhite(ratio=4, seed=0):
     np.random.seed(int(seed))
     data_path = "../data/UTKFace"
-    result_path = "../result/black_"+str(ratio)+"/"
+    result_path = "../result/nonwhite_"+str(ratio)+"/"
     inject_ratio = {"race": [-float(ratio)/10, float(ratio)/10]}
     result = exp(data_path, fair=True, inject=inject_ratio)
     saveto = result_path + str(seed) + ".pickle"
@@ -63,10 +63,10 @@ def white_no(ratio=4, seed=0):
     with open(saveto, "wb") as f:
         pickle.dump(result, f)
 
-def black_no(ratio=4, seed=0):
+def nonwhite_no(ratio=4, seed=0):
     np.random.seed(int(seed))
     data_path = "../data/UTKFace"
-    result_path = "../result/black_no_"+str(ratio)+"/"
+    result_path = "../result/nonwhite_no_"+str(ratio)+"/"
     inject_ratio = {"race": [-float(ratio)/10, float(ratio)/10]}
     result = exp(data_path, fair=False, inject=inject_ratio)
     saveto = result_path + str(seed) + ".pickle"
