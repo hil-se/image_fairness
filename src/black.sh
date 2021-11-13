@@ -39,6 +39,12 @@ spack unload -a
 spack load /lklqe3u
 ## matplotlib
 spack load /saj4vss
+## pandas
+spack load py-pandas
 ## Execute target code
-python3 main.py black ${SLURM_ARRAY_TASK_ID}
+python3 main.py black $RATIO ${SLURM_ARRAY_TASK_ID}
+
+## Submit this job with
+## sbatch --export=RATIO=4 --array=1-30 black.sh
+
 

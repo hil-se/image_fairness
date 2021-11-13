@@ -33,22 +33,42 @@ def fair(seed=0):
     with open(saveto, "wb") as f:
         pickle.dump(result, f)
 
-def white(seed=0):
+def white(ratio=4, seed=0):
     np.random.seed(int(seed))
     data_path = "../data/UTKFace"
-    result_path = "../result/white/"
-    inject_ratio = {"race": [0.4, -0.4]}
+    result_path = "../result/white_"+str(ratio)+"/"
+    inject_ratio = {"race": [float(ratio)/10, -float(ratio)/10]}
     result = exp(data_path, fair=True, inject=inject_ratio)
     saveto = result_path + str(seed) + ".pickle"
     with open(saveto, "wb") as f:
         pickle.dump(result, f)
 
-def black(seed=0):
+def black(ratio=4, seed=0):
     np.random.seed(int(seed))
     data_path = "../data/UTKFace"
-    result_path = "../result/black/"
-    inject_ratio = {"race": [-0.4, 0.4]}
+    result_path = "../result/black_"+str(ratio)+"/"
+    inject_ratio = {"race": [-float(ratio)/10, float(ratio)/10]}
     result = exp(data_path, fair=True, inject=inject_ratio)
+    saveto = result_path + str(seed) + ".pickle"
+    with open(saveto, "wb") as f:
+        pickle.dump(result, f)
+
+def white_no(ratio=4, seed=0):
+    np.random.seed(int(seed))
+    data_path = "../data/UTKFace"
+    result_path = "../result/white_no_"+str(ratio)+"/"
+    inject_ratio = {"race": [float(ratio)/10, -float(ratio)/10]}
+    result = exp(data_path, fair=False, inject=inject_ratio)
+    saveto = result_path + str(seed) + ".pickle"
+    with open(saveto, "wb") as f:
+        pickle.dump(result, f)
+
+def black_no(ratio=4, seed=0):
+    np.random.seed(int(seed))
+    data_path = "../data/UTKFace"
+    result_path = "../result/black_no_"+str(ratio)+"/"
+    inject_ratio = {"race": [-float(ratio)/10, float(ratio)/10]}
+    result = exp(data_path, fair=False, inject=inject_ratio)
     saveto = result_path + str(seed) + ".pickle"
     with open(saveto, "wb") as f:
         pickle.dump(result, f)
