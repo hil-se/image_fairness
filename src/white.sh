@@ -2,7 +2,7 @@
 ## NOTE the -l flag!
 
 ## Name of the job -You'll probably want to customize this
-#SBATCH -J image_fairness_nofair
+#SBATCH -J image_fairness_white
 
 ## Use the resources available on this account
 #SBATCH -A loop

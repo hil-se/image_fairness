@@ -2,7 +2,7 @@
 ## NOTE the -l flag!
 
 ## Name of the job -You'll probably want to customize this
-#SBATCH -J image_fairness_nofair
+#SBATCH -J image_fairness_black
 
 ## Use the resources available on this account
 #SBATCH -A loop
@@ -10,10 +10,6 @@
 ## Standard out and Standard Error output files
 #SBATCH -o log/%J_%a.o
 #SBATCH -e log/%J_%a.e
-
-## To send mail for updates on the job
-## SBATCH --mail-user=zxyvse@rit.edu
-#SBATCH --mail-type=ALL
 
 ## Request 3 Days, 5 Hours, 5 Minutes, 3 Seconds run time MAX,
 ## anything over will be KILLED
@@ -42,9 +38,9 @@ spack load /saj4vss
 ## pandas
 spack load py-pandas
 ## Execute target code
-python3 main.py nonwhite_no $RATIO ${SLURM_ARRAY_TASK_ID}
+python3 main.py black $RATIO ${SLURM_ARRAY_TASK_ID}
 
 ## Submit this job with
-## sbatch --export=RATIO=4 --array=1-30 nonwhite_no.sh
+## sbatch --export=RATIO=4 --array=1-30 black.sh
 
 

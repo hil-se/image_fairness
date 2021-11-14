@@ -23,7 +23,9 @@ class Experiment:
         for f in figures:
             info = f.split('.')[0].split('_')
             race = int(info[2])
-            data['race'].append(int(race>0))
+            if race > 1:
+                continue
+            data['race'].append(race)
             data['age'].append(int(info[0]))
             data['sex'].append(int(info[1]))
             data['image'].append(image.imread(join(data_path, f)))
