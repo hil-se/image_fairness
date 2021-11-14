@@ -128,24 +128,22 @@ class Experiment:
         biased_y = self.y[sample]
         # perform bias injection on the input data.
         for attribute in self.inject_ratio:
-            # try:
-            #     ind = self.protected.index(attribute)
-            # except:
-            #     print("Error: Attribute %s does not exist in the protected attributes." %attribute)
-            #     sys.exit(1)
             if attribute not in self.protected:
                 print("Error: Attribute %s does not exist in the protected attributes." % attribute)
                 break
             else:
                 for group, ratio in enumerate(self.inject_ratio[attribute]):
                     to_change = non_target if ratio>0 else self.target
-                    change_to = self.target if ratio>0 else non_target
                     change = np.where((self.data[attribute][sample] == group) & (self.y[sample]==to_change))[0]
                     size = int(np.abs(ratio)*len(change))
                     selected = np.random.choice(change, size, replace=False)
                     self.injected.extend(list(selected))
-                    for i in selected:
-                        biased_y[i] = change_to
+        self.injected = list(set(self.injected))
+        for i in self.injected:
+            if biased_y[i] == self.target:
+                biased_y[i] = non_target
+            else:
+                biased_y[i] = self.target
         return biased_y
 
     def exp(self, fairbalance=True):
