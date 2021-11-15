@@ -5,22 +5,22 @@
 
 ## Run one experiment with random seed = 0
 
-### VGG16 model for gender prediction without pre-processing on fair training data (no bias injected)
+### VGG16 model without pre-processing on fair training data (no bias injected)
 ```
 src> python main.py nofair 0
 ```
 
-### VGG16 model for gender prediction with FairBalanceClass pre-processing on fair training data (no bias injected)
+### VGG16 model with FairBalanceClass pre-processing on fair training data (no bias injected)
 ```
 src> python main.py fair 0
 ```
 
-### VGG16 model for gender prediction with FairBalanceClass pre-processing on training data with injected bias favoring race = white
+### VGG16 model with FairBalanceClass pre-processing on training data with injected bias favoring race = white
 ```
 src> python main.py white 0
 ```
 
-### VGG16 model for gender prediction with FairBalanceClass pre-processing on training data with injected bias favoring race = black
+### VGG16 model with FairBalanceClass pre-processing on training data with injected bias favoring race = black
 ```
 src> python main.py black 0
 ```
