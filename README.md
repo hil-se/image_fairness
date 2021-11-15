@@ -30,7 +30,7 @@ src> python main.py black 0
 src> python main.py summarize_result
 ```
 
-## Submit 30 jobs at once
+## Submit 30 jobs at once using slurm
 sbatch --array=1-30 fair.sh
 
 
