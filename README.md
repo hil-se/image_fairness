@@ -16,13 +16,15 @@ src> python main.py fair 0
 ```
 
 ### VGG16 model with FairBalanceClass pre-processing on training data with injected bias favoring race = white
+Degree of injected bias = 0.4
 ```
-src> python main.py white 0
+src> python main.py white 4 0
 ```
 
 ### VGG16 model with FairBalanceClass pre-processing on training data with injected bias favoring race = black
+Degree of injected bias = 0.4
 ```
-src> python main.py black 0
+src> python main.py black 4 0
 ```
 
 ### Summarize results in the _result_ folder to generate a csv file under the _csv_ folder
