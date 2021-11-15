@@ -3,6 +3,17 @@
 ## Data
 [UTKFace](https://susanqq.github.io/UTKFace/) under license for non-commercial research purposes only.
 
+## Preparation
+
+0. Install dependencies:
+```
+pip install -r requirements.txt
+```
+1. Navigate to the source code:
+```
+cd src
+```
+
 ## Run one experiment with random seed = 0
 
 ### VGG16 model without pre-processing on fair training data (no bias injected)
