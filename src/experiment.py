@@ -34,7 +34,26 @@ class Experiment:
         print(Counter(data['sex']))
         return data
 
-    def FairBalance(self, train, y, class_balance = True):
+    def FairBalance(self, train, y):
+        sample_weight = [1.0]*len(train)
+        group = {}
+        demographic = {}
+        for i, id in enumerate(train):
+            g = tuple([self.data[p][id] for p in self.protected]+[y[i]])
+            if g not in group:
+                group[g] = []
+            group[g].append(i)
+            if g[:-1] not in demographic:
+                demographic[g[:-1]] = []
+            demographic[g[:-1]].append(i)
+        for g in group:
+            weight = len(demographic[g[:-1]]) / len(group[g])
+            for i in group[g]:
+                sample_weight[i] = weight
+        sample_weight = np.array(sample_weight) * len(train) / sum(sample_weight)
+        return sample_weight
+
+    def FairBalanceVariant(self, train, y):
         sample_weight = [1.0]*len(train)
         group = {}
         for i, id in enumerate(train):
@@ -42,11 +61,8 @@ class Experiment:
             if g not in group:
                 group[g] = []
             group[g].append(i)
-        class_weight = Counter(y)
-        if class_balance:
-            class_weight = {key: 1.0 for key in class_weight}
         for g in group:
-            weight = class_weight[g[-1]] / len(group[g])
+            weight = 1.0 / len(group[g])
             for i in group[g]:
                 sample_weight[i] = weight
         sample_weight = np.array(sample_weight) * len(train) / sum(sample_weight)
