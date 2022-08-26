@@ -6,7 +6,7 @@ from cnn import VGG
 import numpy as np
 
 class Experiment:
-    def __init__(self, data_path="../data/UTKFace", label = "sex", protected_attrs = ["race"]):
+    def __init__(self, data_path="../data/UTKFace", label = "race", protected_attrs = ["sex"]):
         self.data = self.load_data(data_path)
         self.X = self.data["image"]
         self.y = self.data[label]
@@ -20,6 +20,7 @@ class Experiment:
     def load_data(self, data_path="../data/UTKFace"):
         figures = [f for f in listdir(data_path) if isfile(join(data_path, f)) and f.split('.')[-1] == 'jpg']
         data = {'image': [], 'age': [], 'sex': [], 'race': []}
+        group = {}
         for f in figures:
             info = f.split('.')[0].split('_')
             race = int(info[2])
@@ -28,10 +29,15 @@ class Experiment:
             data['race'].append(race)
             data['age'].append(int(info[0]))
             data['sex'].append(int(info[1]))
+            key = (race, int(info[1]))
+            if key not in group:
+                group[key] = 0
+            group[key] += 1
             data['image'].append(image.imread(join(data_path, f)))
         data = {key: np.array(data[key]) for key in data}
         print(Counter(data['race']))
         print(Counter(data['sex']))
+        print(group)
         return data
 
     def FairBalance(self, train, y):
@@ -167,7 +173,7 @@ class Experiment:
         train, test = self.split(len(self.y))
         y = self.inject(train) if self.inject_ratio != None else self.y[train]
         if fairbalance:
-            sample_weight = self.FairBalance(train, y, class_balance=True)
+            sample_weight = self.FairBalance(train, y)
         self.model.fit(self.X[train], y, sample_weight=sample_weight)
         result = self.evaluate(test)
         print(result)
