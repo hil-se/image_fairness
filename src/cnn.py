@@ -71,6 +71,10 @@ class VGG:
         pred = (pred.flatten()>0.5).astype(int).astype(float)
         return pred
 
+    def decision_function(self, X):
+        pred = self.model.predict(X)
+        return pred
+
     def load_model(self, checkpoint_filepath):
         self.model = tf.keras.models.load_model(checkpoint_filepath)
 

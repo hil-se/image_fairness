@@ -148,6 +148,9 @@ class Experiment:
         self.injected = []
         non_target = list(set(Counter(self.y).keys())-{self.target})[0]
         biased_y = self.y[sample]
+        model = VGG()
+        model.fit(self.X[sample], self.y[sample])
+        scores = model.decision_function(self.X[sample])
         # perform bias injection on the input data.
         for attribute in self.inject_ratio:
             if attribute not in self.protected:
@@ -156,9 +159,8 @@ class Experiment:
             else:
                 for group, ratio in enumerate(self.inject_ratio[attribute]):
                     to_change = non_target if ratio>0 else self.target
-                    change = np.where((self.data[attribute][sample] == group) & (self.y[sample]==to_change))[0]
-                    size = int(np.abs(ratio)*len(change))
-                    selected = np.random.choice(change, size, replace=False)
+                    ind = np.where((self.data[attribute][sample] == group) & (self.y[sample]==to_change))[0]
+                    selected = ind[np.argsort(scores[ind])[::-1][:int(len(ind) * np.abs(ratio))]]
                     self.injected.extend(list(selected))
         self.injected = list(set(self.injected))
         for i in self.injected:
