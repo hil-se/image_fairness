@@ -145,7 +145,7 @@ class Experiment:
         self.inject_ratio = inject_ratio
 
     def inject(self, sample):
-        self.injected = []
+        injected = []
         non_target = list(set(Counter(self.y).keys())-{self.target})[0]
         biased_y = self.y[sample]
         model = VGG()
@@ -161,8 +161,8 @@ class Experiment:
                     to_change = non_target if ratio>0 else self.target
                     ind = np.where((self.data[attribute][sample] == group) & (self.y[sample]==to_change))[0]
                     selected = ind[np.argsort(scores[ind])[::-1][:int(len(ind) * np.abs(ratio))]]
-                    self.injected.extend(list(selected))
-        self.injected = list(set(self.injected))
+                    injected.extend(list(selected))
+        self.injected = np.unique(injected)
         for i in self.injected:
             if biased_y[i] == self.target:
                 biased_y[i] = non_target
@@ -173,7 +173,7 @@ class Experiment:
     def exp(self, fairbalance=True):
         sample_weight = None
         train, test = self.split(len(self.y))
-        y = self.inject(train) if self.inject_ratio != None else self.y[train]
+        y = self.inject(train) if self.inject_ratio is not None else self.y[train]
         if fairbalance:
             sample_weight = self.FairBalance(train, y)
         self.model.fit(self.X[train], y, sample_weight=sample_weight)
