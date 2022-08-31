@@ -19,7 +19,7 @@ def nofair(seed = 0):
     np.random.seed(int(seed))
     data_path = "../data/UTKFace"
     result_path = "../result/nofair/"
-    result = exp(data_path, fair=False, label = "race", protected_attrs = ["sex"])
+    result = exp(data_path, fair=False, label = "sex", protected_attrs = ["race"])
     saveto = result_path + str(seed) + ".pickle"
     with open(saveto, "wb") as f:
         pickle.dump(result, f)
@@ -28,7 +28,7 @@ def fair(seed=0):
     np.random.seed(int(seed))
     data_path = "../data/UTKFace"
     result_path = "../result/fair/"
-    result = exp(data_path, fair=True, label = "race", protected_attrs = ["sex"])
+    result = exp(data_path, fair=True, label = "sex", protected_attrs = ["race"])
     saveto = result_path + str(seed) + ".pickle"
     with open(saveto, "wb") as f:
         pickle.dump(result, f)
